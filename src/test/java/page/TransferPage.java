@@ -16,18 +16,22 @@ public class TransferPage {
     private final SelenideElement fromInput = $("[data-test-id='from'] input");
     private final SelenideElement transferHead = $(byText("Пополнение карты"));
     private final SelenideElement errorMessage = $("[data-test-id='error-message']");
+
     public TransferPage() {
         transferHead.shouldBe(visible);
     }
+
     public DashboardPage makeValidTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
         makeTrasfer(amountToTransfer, cardInfo);
         return new DashboardPage();
     }
-    public void makeTrasfer(String  amountToTransfer, DataHelper.CardInfo cardInfo) {
+
+    public void makeTrasfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
         amountInputNew.setValue(amountToTransfer);
         fromInput.setValue(cardInfo.getCardNumber());
         transferButton.click();
     }
+
     public void findErrorMessage(String expectedTest) {
         errorMessage.shouldHave(exactText(expectedTest), Duration.ofSeconds(15)).shouldBe(visible);
     }
